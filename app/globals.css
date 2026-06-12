@@ -167,7 +167,8 @@
   min-height: 52svh;
   background:
     linear-gradient(rgb(23 23 23 / 0.04), rgb(23 23 23 / 0.04)),
-    url("/images/heroImage.jpg");
+    var(--detail-image, none);
+  background-color: var(--panel);
   background-size: cover;
   background-position: center;
 }

@@ -1,31 +1,15 @@
+import { getFeaturedProjects } from "@/sanity/queries";
+import { urlFor } from "@/sanity/image";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import styles from "@/components/sections/FeaturedProjects.module.css";
 
-const projects = [
-  {
-    title: "Private Residence",
-    category: "Residential",
-    location: "Katerini",
-    year: "2025",
-    heroImage: "/images/heroImage.jpg",
-  },
-  {
-    title: "Interior Renovation",
-    category: "Renovation",
-    location: "Pieria",
-    year: "2024",
-    heroImage: "/images/heroImage.jpg",
-  },
-  {
-    title: "Technical Study",
-    category: "Documentation",
-    location: "Greece",
-    year: "2024",
-    heroImage: "/images/heroImage.jpg",
-  },
-];
+export async function FeaturedProjects() {
+  const projects = await getFeaturedProjects();
 
-export function FeaturedProjects() {
+  if (projects.length === 0) {
+    return null;
+  }
+
   return (
     <section className={styles.section}>
       <div className={styles.heading}>
@@ -34,7 +18,19 @@ export function FeaturedProjects() {
       </div>
       <div className={styles.grid}>
         {projects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
+          <ProjectCard
+            key={project._id}
+            project={{
+              title: project.title,
+              slug: project.slug.current,
+              category: project.category ?? "",
+              location: project.location ?? "",
+              year: String(project.year ?? ""),
+              heroImage: project.image
+                ? urlFor(project.image).width(800).url()
+                : undefined,
+            }}
+          />
         ))}
       </div>
     </section>

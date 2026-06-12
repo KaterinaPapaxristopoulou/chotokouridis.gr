@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Footer } from "@/components/layout/Footer";
+import { FooterGate } from "@/components/layout/FooterGate";
 import { Header } from "@/components/layout/Header";
 import "./globals.css";
 
@@ -33,7 +33,7 @@ export default function RootLayout({
       <body className="min-h-full">
         <Header />
         <main>{children}</main>
-        <Footer />
+        <FooterGate />
       </body>
     </html>
   );
